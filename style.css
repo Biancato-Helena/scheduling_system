@@ -3,6 +3,16 @@ body {
  
 }
 
+
+:root {
+    --cor-principal: rgb(107,144,128);
+    --cor-secundaria: rgb(170,118,124);
+    --cor-sombras: rgb(57,46,55);
+    --cor-fundo: rgb(231,236,239);
+    --cor-texto: rgb(57,62,65);
+}
+
+
 h1 {
     color: white;
     background-color: black;
