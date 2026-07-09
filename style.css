@@ -18,5 +18,30 @@ body {
     background-color: var(--cor-principal);
     padding: 20px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 6rem;
+}
+.menu-container{
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.menu img {
+    width: 20rem;
+    height: 20rem;
+    background-color: var(--cor-secundaria);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--cor-sombras);
+}
+.menu p {
+    text-decoration: none;
+    color: var(--cor-texto);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+a{
+    text-decoration: none;
+    color: var(--cor-texto);
 }
