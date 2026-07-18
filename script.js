@@ -4,6 +4,9 @@ let data = new Date();
 let ano = data.getFullYear();
 let mes = data.getMonth()
 
+let quantidadeDias = new Date(ano, mes + 1, 0).getDate();
+
+
 
 const meses = [
     "Janeiro",
@@ -46,11 +49,8 @@ botanterior.addEventListener("click", function() {
         mes = 11;
         ano--;
     }
-    document.getElementById("month-year").innerText = meses[mes - 1];
+    document.getElementById("month-year").innerText = meses[mes];
 });
 
 
-
-
-let quantidadeDias = new Date(ano, mes + 1, 0).getDate();
 
