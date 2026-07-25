@@ -53,4 +53,35 @@ botanterior.addEventListener("click", function() {
 });
 
 
+// Dias do calendário 
+
+
+
+
+
+for (let i = 1; i <= quantidadeDias; i++){
+    const span = document.createElement("span");
+    span.innerText = i;
+    dias.appendChild(span);
+
+}
+
+
+function atualizarCalendario(){
+
+    const dias = document.getElementById("dias");
+
+    dias.innerHTML = "";
+
+    let primeiroDia = new Date(ano, mes, 1).getDay();
+
+    let quantidadeDias = new Date(ano, mes + 1, 0).getDate();
+
+}
+
+
+
+
+
+
 
