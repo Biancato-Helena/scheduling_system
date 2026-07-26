@@ -30,41 +30,10 @@ const botanterior = document.getElementById("prev-month");
 
 document.getElementById("month-year").innerText = meses[mes];
 
-botproximo.addEventListener("click", function() {
-
-    mes++;
-
-    if (mes > 11) {
-        mes = 0;
-        ano++;
-    }
-    document.getElementById("month-year").innerText = meses[mes];
-});
-
-botanterior.addEventListener("click", function() {
-
-    mes--;
-
-    if (mes < 0) {
-        mes = 11;
-        ano--;
-    }
-    document.getElementById("month-year").innerText = meses[mes];
-});
 
 
 // Dias do calendário 
 
-
-
-
-
-for (let i = 1; i <= quantidadeDias; i++){
-    const span = document.createElement("span");
-    span.innerText = i;
-    dias.appendChild(span);
-
-}
 
 
 function atualizarCalendario(){
@@ -77,11 +46,49 @@ function atualizarCalendario(){
 
     let quantidadeDias = new Date(ano, mes + 1, 0).getDate();
 
+
+    for(let i = 0; i < primeiroDia; i++){
+
+        const span = document.createElement("span");
+        
+        dias.appendChild(span);
+    }
+    for(let i = 1; i <= quantidadeDias; i++){
+        
+        const span = document.createElement("span");
+        span.classList.add("dia")
+        span.innerText = i;
+        dias.appendChild(span);
+    }
+
 }
+atualizarCalendario()
 
 
+botanterior.addEventListener("click", function() {
+
+    mes--;
+
+    if (mes < 0) {
+        mes = 11;
+        ano--;
+    }
+    document.getElementById("month-year").innerText = meses[mes];
+    atualizarCalendario()
+});
 
 
+botproximo.addEventListener("click", function() {
+
+    mes++;
+
+    if (mes > 11) {
+        mes = 0;
+        ano++;
+    }
+    document.getElementById("month-year").innerText = meses[mes];
+    atualizarCalendario()
+});
 
 
 
