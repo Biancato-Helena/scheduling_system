@@ -91,4 +91,7 @@ botproximo.addEventListener("click", function() {
 });
 
 
-
+window.addEventListener("resize", () => {
+    console.clear();
+    console.log(window.innerWidth + " px");
+});

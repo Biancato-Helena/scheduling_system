@@ -29,9 +29,10 @@ body {
     padding: 10px;
     text-align: center;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
     grid-template-rows: 1fr;
     gap: 2rem;
+    justify-content: center;
 }
 
 .menu img {
@@ -85,8 +86,10 @@ a{
     margin-top: 2rem;
     background-color: white;
     border: 1px solid rgb(255, 0, 170);
-    margin: 0 1rem 3.5rem 1rem;
+    margin: 0 auto;
+    margin-bottom: 1rem;
     border-radius: 10px;
+    width: fit-content;
 }
 
 .calendario-titulo{
@@ -131,14 +134,14 @@ a{
     justify-content: center;
     gap: 4rem;
     border: 1px solid rgb(0, 255, 0);
-    font-size: 1.8rem;
+    font-size: 1.7rem;
 }
 
 #dias{
     display: grid;
     grid-template-columns: repeat(7, auto);
     justify-content: center;
-    gap: 4rem;
+    gap: 1.7rem;
     margin: 0 0 2rem 0;
     border: 1px solid red;
     padding: 2rem;
@@ -148,6 +151,7 @@ a{
 .dia{
     width: 3rem;
     height: 3rem;
+    padding: 1rem;
 
     display: flex;
     justify-content: center;
@@ -157,4 +161,40 @@ a{
     border-radius: 8px;
 
     box-shadow: 7px 7px 62px 0px rgba(0,0,0,0.1); ;
+    cursor: pointer;
+}
+
+.dia:hover{
+    transform: scale(1.25);
+    transition: transform 0.2s ease;
+    border: 1px solid var(--cor-secundaria);
+}
+@media (max-width: 1024px){
+
+
+}
+
+@media (max-width: 900px){
+    .dia{
+        width: none;
+        padding: 0%;
+    }
+
+    #dias{
+        gap: 0.2rem;
+    }
+
+    .calendario-semana{
+        font-size: 1rem;
+        gap: 1.6rem;
+
+    }
+    .dia:hover{
+        transition: none;
+        transform: none;
+        border: 1px solid var(--cor-principal);
+    }
+    .separador{
+        margin: 3rem;
+    }
 }
