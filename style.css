@@ -90,8 +90,8 @@ a{
     margin-bottom: 1rem;
     border-radius: 10px;
     width: fit-content;
+    box-shadow: 0 4px 8px var(--cor-sombras);
 }
-
 .calendario-titulo{
     font-family: "Lora", serif;
     font-size: 2rem;
@@ -169,10 +169,7 @@ a{
     transition: transform 0.2s ease;
     border: 1px solid var(--cor-secundaria);
 }
-@media (max-width: 1024px){
 
-
-}
 
 @media (max-width: 900px){
     .dia{
