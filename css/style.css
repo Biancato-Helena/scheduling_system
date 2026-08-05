@@ -208,3 +208,15 @@ a{
         margin-right: 2.5rem;
     }
 }
+
+.footer {
+    background-color: var(--cor-principal);
+    padding: 20px;
+    text-align: center;
+    margin-top: 6rem;
+}
+.footer-text {
+    color: var(--cor-fundo);
+    font-size: 1rem;
+    line-height: 1.5;
+}
