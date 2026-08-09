@@ -57,7 +57,15 @@ function atualizarCalendario(){
         
         const span = document.createElement("span");
         span.classList.add("dia")
+
         span.innerText = i;
+
+        const ver = document.createElement("button");
+        ver.innerText = "Ver";
+        ver.classList.add("ver");
+        
+        span.appendChild(ver);
+
         dias.appendChild(span);
     }
 
