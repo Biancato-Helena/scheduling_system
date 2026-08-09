@@ -46,7 +46,27 @@ body {
     margin-top: 10px;
 }
 
-.botao:hover {
-    background-color: var(--cor-secundaria);
-    transform: translateY(-2px);
+
+#obs{
+    resize: none;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--cor-principal);
+}
+ input, select, textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--cor-principal);
+    font-size: 1rem;
+}
+
+footer {
+    background-color: var(--cor-principal);
+    color: var(--cor-fundo);
+    text-align: center;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+    margin-top: 2rem;
+
 }
