@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/Editar.css">
     <title>Editar</title>
 </head>
 <body>
-    
+    <header>
+        <h1>Editar Agendamento</h1>
+        <p>Digite o código do agendamento que deseja editar</p>
+    </header>
+
+    <form action="processar_edicao.php" method="POST">
+        <label for="codigo">Código do Agendamento:</label>
+        <input type="text" id="codigo" name="codigo" required>
+
+        <button type="submit">Procurar</button>
+    </form>
+    <footer>
+        <p>&copy; 2024 Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
