@@ -50,3 +50,13 @@ input, select, textarea {
     border: 1px solid var(--cor-principal);
     font-size: 1rem;
 }
+
+footer {
+    background-color: var(--cor-principal);
+    color: var(--cor-fundo);
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
