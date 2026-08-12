@@ -236,3 +236,18 @@ a{
     font-size: 1rem;
     line-height: 1.5;
 }
+
+#horarios{
+    display: none;
+    
+    text-align: center;
+    background-color: white;
+    border: 1px solid var(--cor-principal);
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--cor-sombras);
+    font-family: "Lora", serif;
+    font-size: 1.2rem;
+    margin: 2rem;
+    padding: 1rem;
+}
