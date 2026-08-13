@@ -60,6 +60,24 @@ function atualizarCalendario(){
 
         span.innerText = i;
 
+        span.addEventListener("click", function() {
+
+            if(window.innerWidth < 900){
+                
+                const secao = document.getElementById("horarios");
+                
+                secao.style.display = "block";
+                
+                secao.innerHTML = `
+                <h2>Horarios Disponíveis - Dia ${i} de ${meses[mes]}</h2>
+                <p>8:00 - 10:00</p>
+                <p>12:00 - 14:00</p>
+                <p>14:00 - 17:00</p>
+                `;
+                
+                secao.scrollIntoView({ behavior: 'smooth' });
+            }});
+
         const ver = document.createElement("button");
         ver.innerText = "Ver";
         ver.classList.add("ver");
