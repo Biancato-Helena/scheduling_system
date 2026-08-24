@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/Agendar.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Agendar.css') }}">
     <title>Agendamentos</title>
 </head>
 <body>
@@ -54,7 +54,7 @@
 
 
 
-<script src="js/Agendar.js"></script>
+<script src="{{ url_for('static', filename='js/Agendar.js') }}"></script>
 
 
 </body>

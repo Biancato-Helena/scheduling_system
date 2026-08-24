@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Principal.css') }}">
     <title>Sistema de Agendamentos</title>
 </head>
 
@@ -18,22 +18,22 @@
     </header>
 
     <div class="menu-container">
-        <a class="menu" href="AgendarPage.html">
+        <a class="menu" href="{{ url_for('agendar')}}">
             <img class="agendar" src="{{url_for('static', filename='imagens/agendar.png')}}" alt="agendar">
             <p class="menu-text">Agendar</p>
         </a>
         
-        <a class="menu" href="Editar.html">
+        <a class="menu" href="{{ url_for('editar')}}">
             <img class="editar" src="{{url_for('static', filename='imagens/editar.png')}}" alt="editar agendamento">
             <p class="menu-text">Editar</p>
         </a>
         
-        <a class="menu" href="Consultar.html">
+        <a class="menu" href="{{ url_for('consultar')}}">
             <img class="consultar" src="{{url_for('static', filename='imagens/consultar.png')}}" alt="consultar agendamento">
             <p class="menu-text">Consultar</p>
         </a>
         
-        <a class="menu" href="Cancelar.html">
+        <a class="menu" href="{{ url_for('cancelar')}}">
             <img class="cancelar" src="{{url_for('static', filename='imagens/cancelar.png')}}" alt="cancelar agendamento">
             <p class="menu-text">Cancelar</p>
         </a>
