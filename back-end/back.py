@@ -8,21 +8,34 @@ app = Flask(
 
 @app.route('/')
 
+# Criação da função inicio para renderizar a página principal
+
 def inicio():
     return render_template("PrincipalPage.html")
 
 
 @app.route("/agendar", methods=['GET', 'POST'])
+
+# Criação a função agendar para receber os dados do formulário e exibir no console
+
 def agendar():
 
     if request.method == 'POST':
         nome = request.form['nome']
         email = request.form['email']
         telefone = request.form['telefone']
+        data = request.form['data']
+        hora = request.form['hora']
+        servico = request.form['servico'] 
+        obs = request.form['obs']
 
-        print(f"Nome: {nome}")
-        print(f"Email: {email}")
-        print(f"Telefone: {telefone}")  
+        print("Nome:", nome)
+        print("Email:", email)
+        print("Telefone:", telefone)
+        print("Data:", data)
+        print("Hora:", hora)
+        print("Serviço:", servico)
+        print("Observações:", obs)
 
     return render_template("AgendarPage.html")
 
