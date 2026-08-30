@@ -26,3 +26,7 @@ nome.addEventListener("input", function(){
     nome.value = valor;
 });
 
+window.addEventListener("resize", () => {
+    console.clear();
+    console.log(window.innerWidth + " px");
+});
