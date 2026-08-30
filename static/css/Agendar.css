@@ -17,7 +17,7 @@ body {
 .header {
     background-color: var(--cor-principal);
     padding: 20px;
-    margin-bottom: 6rem;
+    margin-bottom: 2rem;
     clip-path: polygon(100% 0%, 0% 0% , 0.00% 96.43%, 6.67% 93.94%, 13.33% 91.27%, 20.00% 88.98%, 26.67% 87.53%, 33.33% 87.24%, 40.00% 88.17%, 46.67% 90.12%, 53.33% 92.68%, 60.00% 95.32%, 66.67% 97.49%, 73.33% 98.74%, 80.00% 98.81%, 86.67% 97.68%, 93.33% 95.58%, 100.00% 92.96%);
     text-align: center;
     color: var(--cor-fundo);
@@ -69,4 +69,10 @@ footer {
     width: 100%;
     margin-top: 2rem;
 
+}
+.info {
+    text-align: center;
+    color: var(--cor-texto);
+    padding: 1rem;
+    font-family: Arial, sans-serif;
 }
