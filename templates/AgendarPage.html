@@ -12,6 +12,7 @@
             <h1 class="titulo">Agendamento de Serviços</h1>
             <p class="subtitulo">Preencha o formulário abaixo para agendar seu serviço</p>
         </div>
+        <h2 class="info"> Informações</h2>
     <form class="formulario" action="/agendar" method="POST">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
@@ -22,11 +23,6 @@
         <label for="telefone">Telefone:</label>
         <input type="tel" id="telefone" name="telefone" required>
 
-        <label for="data">Data do Agendamento:</label>
-        <input type="date" id="data" name="data" required>
-
-        <label for="hora">Hora do Agendamento:</label>
-        <input type="time" id="hora" name="hora" required>
 
         <label for="servico">Serviço:</label>
         <select id="servico" name="servico" required>
@@ -39,7 +35,7 @@
         <label for="obs">Observações:</label>
         <textarea id="obs" name="obs" rows="4" placeholder="Digite suas observações aqui..."></textarea>        
 
-        <button  class="botao" type="submit">Agendar</button>
+        <button  class="botao" type="submit">Continuar agendamento</button>
 
     </form>
 
