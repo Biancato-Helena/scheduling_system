@@ -51,7 +51,9 @@ def consultar():
 def cancelar():
     return render_template("Cancelar.html")
 
-
+@app.route("/calendario")
+def calendario():
+    return render_template("calendario.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

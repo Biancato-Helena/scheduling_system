@@ -12,7 +12,7 @@
             <h1 class="titulo">Agendamento de Serviços</h1>
             <p class="subtitulo">Preencha o formulário abaixo para agendar seu serviço</p>
         </div>
-        <h2 class="info"> Informações</h2>
+        <h2 class="info"> Cadastro do Usuário</h2>
     <form class="formulario" action="/agendar" method="POST">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
@@ -35,14 +35,14 @@
         <label for="obs">Observações:</label>
         <textarea id="obs" name="obs" rows="4" placeholder="Digite suas observações aqui..."></textarea>        
 
-        <button  class="botao" type="submit">Continuar agendamento</button>
+        <a href="{{ url_for('calendario')}}" class="botao" type="submit">Continuar agendamento</a>
 
     </form>
 
     <div id="código"></div>
 
         <footer>
-            <p>&copy; 2024 Todos os direitos reservados.</p>
+            <p>&copy; 2026 Todos os direitos reservados.</p>
         </footer>
 
 
