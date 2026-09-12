@@ -45,9 +45,8 @@ footer {
     color: var(--cor-fundo);
     text-align: center;
     padding: 10px;
-    position: fixed;
     bottom: 0;
-    width: 100%;
+    width: auto;
 }
 button {
     background-color: var(--cor-principal);
