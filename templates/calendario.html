@@ -3,12 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/calendario.css') }}">
     <title>Agendamentos 2</title>
 </head>
 <body>
     
-<p id="teste"></p>
+   <header>
+        <h1>Data do Agendamento</h1>
+        <p>Escolha uma Data Disponível</p>
+    </header>
 
+    <div class="calendario">
+        <h2 class="calendario-titulo">Datas disponíveis</h2>
+            
+        <div class="calendario-navegacao">
+            <button class="calendario-botao" id="prev-month">Anterior</button>
+            <p class="calendario-mes" id="month-year"></p>
+            <button class="calendario-botao" id="next-month">Próximo</button>
+        
+        </div>
+
+        <div class="calendario-semana">
+            <span class="semana">Dom</span>
+            <span class="semana">Seg</span>
+            <span class="semana">Ter</span>
+            <span class="semana">Qua</span>
+            <span class="semana">Qui</span>
+            <span class="semana">Sex</span>
+            <span class="semana">Sab</span>
+        </div>
+            
+        
+            <div id="dias"></div>
+
+    </div>
 
 
 
