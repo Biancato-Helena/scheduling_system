@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
 
+import mysql.connector  
+
 app = Flask(
     __name__,
     template_folder='../templates',
@@ -57,3 +59,40 @@ def calendario():
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
+
+
+
+def conectar():
+    # Configurações de conexão com o banco de dados
+    try:
+        conexao = mysql.connector.connect(
+        host= "localhost",
+        password= "1234",
+        port= 3306,
+        user= "root",
+        database= "Agendamentos"
+    )
+        print("Conexão bem-sucedida ao banco de dados!")
+        return conexao
+    except mysql.connector.Error as err:
+        print(f"Erro ao conectar ao banco de dados: {err}")
+        return None
+
+
+def salvar_agendamento(nome, email, telefone, data, hora, servico, obs):
+    conexao = conectar()
+    if conexao:
+        cursor = conexao.cursor()
+
+        sql = "INSERT INTO agendamentos (nome, email, telefone, data, hora, servico, obs) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        valores = (nome, email, telefone, data, hora, servico, obs)
+
+    cursor.execute(sql, valores)
+    conexao.commit()
+
+    id_agendamento = cursor.lastrowid
+
+    cursor.close()
+    conexao.close()
+
+    return id_agendamento
