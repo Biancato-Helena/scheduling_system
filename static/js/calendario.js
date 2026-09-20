@@ -69,9 +69,9 @@ function atualizarCalendario(){
                 
                 secao.innerHTML = `
                 <h2>Horarios Disponíveis - Dia ${i} de ${meses[mes]}</h2>
-                <p>8:00 - 10:00</p>
-                <p>12:00 - 14:00</p>
-                <p>14:00 - 17:00</p>
+                <button class="bot_horario">8:00 - 10:00</button class="bot_horario">
+                <button class="bot_horario">12:00 - 14:00</button class="bot_horario">
+                <button class="bot_horario">14:00 - 17:00</button class="bot_horario">
                 `;
                 
                 secao.scrollIntoView({ behavior: 'smooth' });
@@ -89,9 +89,9 @@ function atualizarCalendario(){
 
             secao.innerHTML = `
             <h2>Horarios Disponíveis - Dia ${i} de ${meses[mes]}</h2>
-            <p>8:00 - 10:00</p>
-            <p>12:00 - 14:00</p>
-            <p>14:00 - 17:00</p>
+            <button class="bot_horario">8:00 - 10:00</button class="bot_horario">
+            <button class="bot_horario">12:00 - 14:00</button class="bot_horario">
+            <button class="bot_horario">14:00 - 17:00</button class="bot_horario">
             `;
             
             secao.scrollIntoView({ behavior: 'smooth' });
