@@ -45,6 +45,15 @@
     <div class="finalizacao">
     <button class="botao" id="agendar">Finalizar Agendamento</button>
     </div>
+
+    {% if id_agendamento %}
+    <div class="confirmacao">
+        <h2>Agendamento realizado com sucesso!</h2>
+        <p>Seu código de agendamento é:</p>
+        <h3>{{ id_agendamento }}</h3>
+        <p>Guarde esse código para consultar, editar ou cancelar seu agendamento.</p>
+    </div>
+    {% endif %}
         
     
         <footer>

@@ -268,3 +268,11 @@ footer {
     transition: background-color 0.3s ease, transform 0.3s ease;
     margin-top: 10px;
 }
+.confirmacao{
+    text-align: center;
+    margin: 2rem;
+    background-color: var(--cor-fundo);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--cor-sombras);
+}
