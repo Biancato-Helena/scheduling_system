@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request
 
+from flask import Flask, render_template, request, session, redirect, url_for
 import mysql.connector  
 
 app = Flask(
@@ -7,6 +7,8 @@ app = Flask(
     template_folder='../templates',
     static_folder='../static'
     )
+
+app.secret_key = "chave-do-meu-sistema"
 
 @app.route('/')
 
@@ -26,19 +28,18 @@ def agendar():
         nome = request.form['nome']
         email = request.form['email']
         telefone = request.form['telefone']
-        data = request.form['data']
-        hora = request.form['hora']
         servico = request.form['servico'] 
-        obs = request.form['obs']
+        observacao = request.form['obs']
 
-        print("Nome:", nome)
-        print("Email:", email)
-        print("Telefone:", telefone)
-        print("Data:", data)
-        print("Hora:", hora)
-        print("Serviço:", servico)
-        print("Observações:", obs)
 
+        session["nome"] = nome
+        session["email"] = email
+        session["telefone"] = telefone
+        session["servico"] = servico
+        session["obs"] = observacao
+
+        return redirect(url_for("calendario"))
+    
     return render_template("AgendarPage.html")
 
 @app.route("/editar")
@@ -57,10 +58,32 @@ def cancelar():
 def calendario():
     return render_template("calendario.html")
 
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
+@app.route("/finalizacao", methods=["POST"])
+def finalizacao():
 
+    data = request.form["data"]
+    horario = request.form["horario"]
 
+    nome = session["nome"]
+    email = session["email"]
+    telefone = session["telefone"]
+    servico = session["servico"]
+    observacao = session["obs"]
+
+    id_agendamento = salvar_agendamento(
+        nome,
+        email,
+        telefone,
+        data,
+        horario,
+        servico,
+        observacao
+    )
+
+    return render_template(
+        "calendario.html",
+        id_agendamento=id_agendamento
+    )
 
 def conectar():
     # Configurações de conexão com o banco de dados
@@ -79,20 +102,25 @@ def conectar():
         return None
 
 
-def salvar_agendamento(nome, email, telefone, data, hora, servico, obs):
+def salvar_agendamento(nome, email, telefone, data, horario, servico, observacao):
     conexao = conectar()
     if conexao:
         cursor = conexao.cursor()
 
-        sql = "INSERT INTO agendamentos (nome, email, telefone, data, hora, servico, obs) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        valores = (nome, email, telefone, data, hora, servico, obs)
+        sql = "INSERT INTO agendamentos (nome, email, telefone, data, horario, servico, observacao) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        valores = (nome, email, telefone, data, horario, servico, observacao)
 
-    cursor.execute(sql, valores)
-    conexao.commit()
+        cursor.execute(sql, valores)
+        conexao.commit()
 
-    id_agendamento = cursor.lastrowid
+        id_agendamento = cursor.lastrowid
 
-    cursor.close()
-    conexao.close()
+        cursor.close()
+        conexao.close()
 
-    return id_agendamento
+        return id_agendamento
+
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5000, debug=True)
+
