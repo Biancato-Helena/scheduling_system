@@ -112,30 +112,67 @@ botproximo.addEventListener("click", function() {
 
 
 function mostrarhorarios(dia) {
+
     const secao = document.getElementById("horarios");
-    
-    secao.style.display = "block";
-    
-    secao.innerHTML = `
-    <h2>Horarios Disponíveis - Dia ${dia} de ${meses[mes]}</h2>
-    <button class="bot_horario" data-horario="8:00:00" >8:00 - 10:00</button class="bot_horario">
-    <button class="bot_horario" data-horario="12:00:00">12:00 - 14:00</button class="bot_horario">
-    <button class="bot_horario" data-horario="14:00:00">14:00 - 17:00</button class="bot_horario">
-    `;
 
-    secao.scrollIntoView({ behavior: 'smooth' });
+    dataSelecionada =
+        `${ano}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
 
-    document.querySelectorAll(".bot_horario").forEach(function(botao) {
-        botao.addEventListener("click", function() {
-            
+    fetch(`/horarios-disponiveis?data=${dataSelecionada}`)
+        .then(resposta => resposta.json())
+        .then(dados => {
 
+            secao.style.display = "block";
 
-            horarioSelecionado = botao.dataset.horario;
-            dataSelecionada = `${ano}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+            let botoes = "";
 
-            secao.innerHTML = ` <h2>Agendamento selecionado</h2> <p>Data: ${dataSelecionada}</p> <p>Horário: ${horarioSelecionado}</p> `;
+            if (dados.horarios.includes("08:00:00")) {
+                botoes += `
+                    <button class="bot_horario" data-horario="08:00:00">
+                        8:00 - 10:00
+                    </button>
+                `;
+            }
+
+            if (dados.horarios.includes("12:00:00")) {
+                botoes += `
+                    <button class="bot_horario" data-horario="12:00:00">
+                        12:00 - 14:00
+                    </button>
+                `;
+            }
+
+            if (dados.horarios.includes("14:00:00")) {
+                botoes += `
+                    <button class="bot_horario" data-horario="14:00:00">
+                        14:00 - 17:00
+                    </button>
+                `;
+            }
+
+            secao.innerHTML = `
+                <h2>Horarios Disponíveis - Dia ${dia} de ${meses[mes]}</h2>
+                ${botoes}
+            `;
+
+            secao.scrollIntoView({ behavior: 'smooth' });
+
+            document.querySelectorAll(".bot_horario").forEach(function(botao) {
+
+                botao.addEventListener("click", function() {
+
+                    horarioSelecionado = botao.dataset.horario;
+
+                    secao.innerHTML = `
+                        <h2>Agendamento selecionado</h2>
+                        <p>Data: ${dataSelecionada}</p>
+                        <p>Horário: ${horarioSelecionado}</p>
+                    `;
+                });
+
+            });
+
         });
-    });
 }
 
 document.getElementById("agendar").addEventListener("click", function() {
