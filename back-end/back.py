@@ -104,23 +104,80 @@ def conectar():
 
 def salvar_agendamento(nome, email, telefone, data, horario, servico, observacao):
     conexao = conectar()
+    
     if conexao:
         cursor = conexao.cursor()
 
-        sql = "INSERT INTO agendamentos (nome, email, telefone, data, horario, servico, observacao) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        valores = (nome, email, telefone, data, horario, servico, observacao)
+        sql_verificar = "SELECT * FROM agendamentos WHERE data = %s AND horario = %s"
 
-        cursor.execute(sql, valores)
-        conexao.commit()
+        cursor.execute(sql_verificar, (data, horario))
+        agendamento_existente = cursor.fetchone()
 
-        id_agendamento = cursor.lastrowid
+        if agendamento_existente:
+            cursor.close()
+            conexao.close()
+            return None  
+            
+    sql = "INSERT INTO agendamentos (nome, email, telefone, data, horario, servico, observacao) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    valores = (nome, email, telefone, data, horario, servico, observacao)
+
+    cursor.execute(sql, valores)
+    conexao.commit()
+
+    id_agendamento = cursor.lastrowid
+
+    cursor.close()
+    conexao.close()
+
+    return id_agendamento
+
+
+@app.route("/horarios-disponiveis")
+def horarios_disponiveis():
+
+    data = request.args.get("data")
+
+    conexao = conectar()
+
+    if conexao:
+        cursor = conexao.cursor()
+
+        sql = """
+            SELECT horario
+            FROM agendamentos
+            WHERE data = %s
+        """
+
+        cursor.execute(sql, (data,))
+
+        horarios_ocupados = cursor.fetchall()
 
         cursor.close()
         conexao.close()
 
-        return id_agendamento
+        horarios_ocupados = [
+            str(horario[0]) for horario in horarios_ocupados
+        ]
+
+        horarios = [
+            "08:00:00",
+            "12:00:00",
+            "14:00:00"
+        ]
+
+        horarios_disponiveis = [
+            horario for horario in horarios
+            if horario not in horarios_ocupados
+        ]
+
+        return {
+            "horarios": horarios_disponiveis
+        }
+
+    return {
+        "horarios": []
+    }
 
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
-
