@@ -46,12 +46,74 @@ def agendar():
 def editar():
     return render_template("Editar.html")
 
-@app.route("/consultar")
+
+
+@app.route("/consultar", methods =["GET", "POST"])
 def consultar():
+
+    if request.method == "POST":
+
+        codigo = request.form["codigo"]
+
+        conexao = conectar()
+
+        if conexao:
+            cursor = conexao.cursor()
+
+            sql ="""
+            SELECT id, nome, data, horario
+            FROM agendamentos
+            WHERE id = %s
+        """
+
+        cursor.execute(sql, (codigo,))
+
+        agendamento = cursor.fetchone()
+
+        cursor.close()
+        conexao.close()
+
+        if agendamento:
+            return render_template(
+                "Consultar.html",
+                agendamento=agendamento
+            )
+        return render_template(
+            "Consultar.html",
+            erro="Agendamento não encontrado.")
+    
     return render_template("Consultar.html")
 
-@app.route("/cancelar")
+@app.route("/cancelar" , methods=["GET", "POST"])
 def cancelar():
+
+    if request.method == "POST":
+        codigo = request.form["codigo"]
+
+        conexao = conectar()
+
+        if conexao:
+            cursor = conexao.cursor()
+
+            sql = "DELETE FROM agendamentos WHERE id = %s"
+
+            cursor.execute(sql, (codigo,))
+            conexao.commit()
+
+            if cursor.rowcount > 0:
+                mensagem = "Agendamento cancelado com sucesso."
+            else:
+                mensagem = "Agendamento não encontrado."
+
+            cursor.close()
+            conexao.close()
+
+            return render_template(
+                "Cancelar.html",
+                sucesso = mensagem
+            )
+
+
     return render_template("Cancelar.html")
 
 @app.route("/calendario")
