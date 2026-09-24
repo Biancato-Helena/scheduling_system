@@ -13,13 +13,20 @@
         <p>Digite o código do agendamento que deseja cancelar</p>
     </header>
 
-    <form action="processar_cancelamento.php" method="POST">
+    <form action="/cancelar" method="POST">
         <label for="codigo">Código do Agendamento:</label>
         <input type="text" id="codigo" name="codigo" required>
 
         <button type="submit">Procurar</button>
 
     </form>
+    
+    {% if sucesso %}
+    <div class="sucesso">
+        <p>{{ sucesso }}</p>
+    </div>
+{% endif %}
+
     <footer>
         <p>&copy; 2026 Todos os direitos reservados.</p>
     </footer>
