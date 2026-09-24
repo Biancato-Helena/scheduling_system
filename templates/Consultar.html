@@ -19,6 +19,22 @@
 
         <button type="submit">Procurar</button>
     </form>
+    
+    {% if agendamento %}
+        <div class="resultado">
+            <h2>Detalhes do Agendamento</h2>
+            <p><strong>Código:</strong> {{ agendamento[0] }}</p>
+            <p><strong>Nome:</strong> {{ agendamento[1] }}</p>
+            <p><strong>Data:</strong> {{ agendamento[2] }}</p>
+            <p><strong>Hora:</strong> {{ agendamento[3] }}</p>
+        </div>
+    {% endif %}
+    {%if erro %}
+        <div class="erro">
+            <p>{{ erro }}</p>
+        </div>
+    {% endif %}
+
     <footer>
         <p>&copy; 2026 Todos os direitos reservados.</p>
     </footer>
