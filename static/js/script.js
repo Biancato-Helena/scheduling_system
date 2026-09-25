@@ -36,7 +36,7 @@ document.getElementById("month-year").innerText = meses[mes];
 
 
 
-function atualizarCalendario(){
+function atualizarCalendario() {
 
     const dias = document.getElementById("dias");
 
@@ -46,62 +46,47 @@ function atualizarCalendario(){
 
     let quantidadeDias = new Date(ano, mes + 1, 0).getDate();
 
+    const inicio = `${ano}-${String(mes + 1).padStart(2, '0')}-01`;
+    const fim = `${ano}-${String(mes + 1).padStart(2, '0')}-${quantidadeDias}`;
 
-    for(let i = 0; i < primeiroDia; i++){
+    fetch(`/datas-disponiveis?inicio=${inicio}&fim=${fim}`)
+        .then(resposta => resposta.json())
+        .then(dados => {
 
-        const span = document.createElement("span");
-        
-        dias.appendChild(span);
-    }
-    for(let i = 1; i <= quantidadeDias; i++){
-        
-        const span = document.createElement("span");
-        span.classList.add("dia")
+            for (let i = 0; i < primeiroDia; i++) {
 
-        span.innerText = i;
+                const span = document.createElement("span");
 
-        span.addEventListener("click", function() {
+                dias.appendChild(span);
+            }
 
-            if(window.innerWidth < 900){
-                
-                const secao = document.getElementById("horarios");
-                
-                secao.style.display = "block";
-                
-                secao.innerHTML = `
-                <h2>Horarios Disponíveis - Dia ${i} de ${meses[mes]}</h2>
-                <p>8:00 - 10:00</p>
-                <p>12:00 - 14:00</p>
-                <p>14:00 - 17:00</p>
-                `;
-                
-                secao.scrollIntoView({ behavior: 'smooth' });
-            }});
+            for (let i = 1; i <= quantidadeDias; i++) {
 
-        const ver = document.createElement("button");
-        ver.innerText = "Ver";
-        ver.classList.add("ver");
-        
-        ver.addEventListener("click", function() {
-            
-            const secao = document.getElementById("horarios");
-            
-            secao.style.display = "block";
+                const span = document.createElement("span");
 
-            secao.innerHTML = `
-            <h2>Horarios Disponíveis - Dia ${i} de ${meses[mes]}</h2>
-            <p>8:00 - 10:00</p>
-            <p>12:00 - 14:00</p>
-            <p>14:00 - 17:00</p>
-            `;
-            
-            secao.scrollIntoView({ behavior: 'smooth' });
+                span.classList.add("dia");
+
+                span.innerText = i;
+
+                const dataAtual =
+                    `${ano}-${String(mes + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+
+                if (dados.datas_indisponiveis.includes(dataAtual)) {
+
+                    span.classList.add("indisponivel");
+
+                } else {
+
+                    span.classList.add("disponivel");
+
+                    span.addEventListener("click", function() {
+                        mostrarhorarios(i);
+                    });
+
+                }
+                dias.appendChild(span);
+            }
         });
-        span.appendChild(ver);
-
-        dias.appendChild(span);
-    }
-
 }
 atualizarCalendario()
 
@@ -132,7 +117,44 @@ botproximo.addEventListener("click", function() {
 });
 
 
-window.addEventListener("resize", () => {
-    console.clear();
-    console.log(window.innerWidth + " px");
-});
+function mostrarhorarios(dia) {
+
+    const secao = document.getElementById("horarios");
+
+    const dataSelecionada =
+        `${ano}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+
+    fetch(`/horarios-disponiveis?data=${dataSelecionada}`)
+        .then(resposta => resposta.json())
+        .then(dados => {
+
+            secao.style.display = "block";
+
+            let horarios = "";
+
+            if (dados.horarios.includes("08:00:00")) {
+                horarios += "<p>8:00 - 10:00</p>";
+            }
+
+            if (dados.horarios.includes("12:00:00")) {
+                horarios += "<p>12:00 - 14:00</p>";
+            }
+
+            if (dados.horarios.includes("14:00:00")) {
+                horarios += "<p>14:00 - 17:00</p>";
+            }
+
+            if (horarios === "") {
+                horarios = "<p>Nenhum horário disponível.</p>";
+            }
+
+            secao.innerHTML = `
+                <h2>Horários Disponíveis - Dia ${dia} de ${meses[mes]}</h2>
+                ${horarios}
+            `;
+
+            secao.scrollIntoView({ behavior: 'smooth' });
+
+
+        });
+}
