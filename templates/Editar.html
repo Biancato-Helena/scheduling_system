@@ -12,14 +12,75 @@
         <p>Digite o código do agendamento que deseja editar</p>
     </header>
 
-    <form action="processar_edicao.php" method="POST">
+    <form action="{{ url_for('editar') }}" method="POST">
         <label for="codigo">Código do Agendamento:</label>
         <input type="text" id="codigo" name="codigo" required>
 
         <button type="submit">Procurar</button>
     </form>
-    <footer>
-        <p>&copy; 2026 Todos os direitos reservados.</p>
-    </footer>
+    {% if agendamento %}
+
+<div class="resultado">
+
+    <h2>Agendamento encontrado</h2>
+
+    <p><strong>Nome:</strong> {{ agendamento[1] }}</p>
+
+    <p><strong>Data:</strong> {{ agendamento[2] }}</p>
+
+    <p><strong>Horário atual:</strong> {{ agendamento[3] }}</p>
+
+    <h3>Escolha um novo horário:</h3>
+
+    <div id="horarios"></div>
+
+</div>
+
+<script>
+    const data = "{{ agendamento[2] }}";
+    const codigo = "{{ agendamento[0] }}";
+
+    fetch(`/horarios-disponiveis?data=${data}`)
+        .then(resposta => resposta.json())
+        .then(dados => {
+
+            const horarios = document.getElementById("horarios");
+
+            dados.horarios.forEach(horario => {
+
+                const botao = document.createElement("button");
+
+                botao.type = "button";
+                botao.innerText = horario;
+
+                botao.addEventListener("click", function() {
+                    atualizarHorario(horario);
+                });
+
+                horarios.appendChild(botao);
+            });
+
+        });
+
+    function atualizarHorario(horario) {
+
+        fetch("/atualizar-horario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                codigo: codigo,
+                horario: horario
+            })
+        })
+        .then(resposta => resposta.json())
+        .then(dados => {
+            alert(dados.mensagem);
+        });
+    }
+</script>
+
+{% endif %}
 </body>
 </html>
