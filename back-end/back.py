@@ -42,11 +42,75 @@ def agendar():
     
     return render_template("AgendarPage.html")
 
-@app.route("/editar")
+@app.route("/editar", methods=["GET", "POST"])
 def editar():
+
+    if request.method == "POST":
+
+        codigo = request.form["codigo"]
+
+        conexao = conectar()
+
+        if conexao:
+            cursor = conexao.cursor()
+
+            sql = """
+                SELECT id, nome, data, horario
+                FROM agendamentos
+                WHERE id = %s
+            """
+
+            cursor.execute(sql, (codigo,))
+            agendamento = cursor.fetchone()
+
+            cursor.close()
+            conexao.close()
+
+            if agendamento:
+                return render_template(
+                    "Editar.html",
+                    agendamento=agendamento
+                )
+
+            return render_template(
+                "Editar.html",
+                erro="Agendamento não encontrado."
+            )
+
     return render_template("Editar.html")
 
+@app.route("/atualizar-horario", methods=["POST"])
+def atualizar_horario():
 
+    dados = request.get_json()
+
+    codigo = dados["codigo"]
+    horario = dados["horario"]
+
+    conexao = conectar()
+
+    if conexao:
+        cursor = conexao.cursor()
+
+        sql = """
+            UPDATE agendamentos
+            SET horario = %s
+            WHERE id = %s
+        """
+
+        cursor.execute(sql, (horario, codigo))
+        conexao.commit()
+
+        cursor.close()
+        conexao.close()
+
+        return {
+            "mensagem": "Horário atualizado com sucesso!"
+        }
+
+    return {
+        "mensagem": "Erro ao atualizar o horário."
+    }
 
 @app.route("/consultar", methods =["GET", "POST"])
 def consultar():
@@ -214,12 +278,22 @@ def horarios_disponiveis():
 
         horarios_ocupados = cursor.fetchall()
 
+
+        horarios_convertidos = []
+
+        for horario in horarios_ocupados:
+            segundos = horario[0].total_seconds()
+            horas = int(segundos // 3600)
+            minutos = int((segundos % 3600) // 60)
+
+            horarios_convertidos.append(
+                f"{horas:02d}:{minutos:02d}:00"
+            )
+
+        horarios_ocupados = horarios_convertidos
+
         cursor.close()
         conexao.close()
-
-        horarios_ocupados = [
-            str(horario[0]) for horario in horarios_ocupados
-        ]
 
         horarios = [
             "08:00:00",
@@ -238,6 +312,46 @@ def horarios_disponiveis():
 
     return {
         "horarios": []
+    }
+
+@app.route("/datas-disponiveis")
+def datas_disponiveis():
+
+    data_inicial = request.args.get("inicio")
+    data_final = request.args.get("fim")
+
+    conexao = conectar()
+
+    if conexao:
+        cursor = conexao.cursor()
+
+        sql = """
+            SELECT data, COUNT(horario)
+            FROM agendamentos
+            WHERE data BETWEEN %s AND %s
+            GROUP BY data
+        """
+
+        cursor.execute(sql, (data_inicial, data_final))
+
+        resultados = cursor.fetchall()
+        print("RESULTADOS:", resultados)
+
+        cursor.close()
+        conexao.close()
+
+        datas_indisponiveis = []
+
+        for data, quantidade in resultados:
+            if quantidade >= 3:
+                datas_indisponiveis.append(str(data))
+
+        return {
+            "datas_indisponiveis": datas_indisponiveis
+        }
+
+    return {
+        "datas_indisponiveis": []
     }
 
 
