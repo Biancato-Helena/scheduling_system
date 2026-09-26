@@ -216,7 +216,7 @@ def conectar():
     try:
         conexao = mysql.connector.connect(
         host= "localhost",
-        password= "1234",
+        password= "SUA_SENHA_AQUI",
         port= 3306,
         user= "root",
         database= "Agendamentos"
